@@ -1,0 +1,29 @@
+/* Mengubah warna background progress bar */
+#nprogress .bar {
+    background: linear-gradient(to right, #FFBB00, yellow) !important;
+    z-index: 9999;
+}
+  
+/* Mengubah warna background dan border loader */
+#nprogress .peg {
+    box-shadow: 0 0 10px #FFBB00, 0 0 5px #FFBB00;
+}
+  
+/* Mengubah warna spinner */
+#nprogress .spinner-icon {
+    border-top-color: #007bff !important;
+    border-left-color: #007bff !important;
+}
+
+/* input:required:invalid {
+    border-color: red;
+}
+input.is-invalid {
+    border-color: red;
+} */
+
+.select-icon option:before {
+    font-family: FontAwesome;
+    content: attr(data-icon);
+    padding-right: 5px;
+}
