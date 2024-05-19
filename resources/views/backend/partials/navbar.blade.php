@@ -1,54 +1,34 @@
-<a href="{{ route('home') }}" class="logo">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini">{!! \App\Models\AppSetting::where('setting_key', 'system_short_name')->value('setting_value') !!}</span>
-    <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg">{!! \App\Models\AppSetting::where('setting_key', 'system_short_name')->value('setting_value') !!}</span>
-</a>
-<nav class="navbar navbar-static-top">
-    <!-- Sidebar toggle button-->
-    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-    <span class="sr-only">Toggle navigation</span>
-    </a>
-
-    <div class="navbar-custom-menu">
-    <ul class="nav navbar-nav">
-        <li class="dropdown user user-menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-            <span class="hidden-xs">
-                @if(Auth::check())    
-                    {{ Auth::user()->name }}
-                @endif
-            </span>
-        </a>
-        <ul class="dropdown-menu">
-            <!-- User image -->
-            <li class="user-header">
-            <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-
-            <p>
-            @if(Auth::check())    
-                {{ Auth::user()->name }}
-            @endif
-            @if(Auth::check())
-                <small>{{ Auth::user()->roles->pluck('name')->implode(', ') }}</small>
-                @endif
-            </p>
-            </li>
-            
-            <li class="user-footer">
-            <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
-            </div>
-            <div class="pull-right">
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign out</a>
+<nav class="navbar navbar-expand-lg main-navbar">
+    <form class="form-inline mr-auto">
+    <ul class="navbar-nav mr-3">
+        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+        <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+    </ul>
+    
+    </form>
+    <ul class="navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <img alt="image" src="{{ asset('assets/backend/stisla/img/avatar/avatar-4.png') }}" class="rounded-circle mr-1">
+                <div class="d-sm-none d-lg-inline-block">
+                    @if(Auth::check())    
+                        {{ Auth::user()->name }}
+                    @endif
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-title"></div>
+                <a href="{{ route('users.edit', Auth::user()->id) }}" class="dropdown-item has-icon">
+                    <i class="far fa-user"></i> Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item has-icon text-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </div>
-            </li>
-        </ul>
         </li>
     </ul>
-    </div>
 </nav>

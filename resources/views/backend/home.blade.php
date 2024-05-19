@@ -1,62 +1,45 @@
 @extends('backend.app')
 
+@section('custom-css')
+<link rel="stylesheet" href="{{ asset('assets/backend/stisla/css/custom.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/backend/stisla/modules/datatables/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/backend/stisla/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/backend/stisla/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+
+<link rel="stylesheet" href="{{ asset('assets/backend/stisla/modules/select2/dist/css/select2.min.css') }}">
+@endsection
+
 @section('breadcrumb')
-<h1>
-    Dashboard
-    <small>Control panel</small>
-</h1>
-<ol class="breadcrumb">
-    <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Dashboard</li>
-</ol>
+<h1>Dashboard</h1>
+<div class="section-header-breadcrumb">
+    <div class="breadcrumb-item active"><a href="{{ route('home') }}">Home</a></div>
+    <div class="breadcrumb-item"><a href="#">{{ $contentHeader }}</a></div>
+</div>
 @endsection
 
 @section('content')
-<div class="box-header with-border">
-    <h3 class="box-title">Home Dashboard</h3>
-    <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-            <i class="fa fa-minus"></i>
-        </button>
-    </div>
+<div class="row">
+              
 </div>
-<div class="box-body">
-    <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-    
-                <div class="info-box-content">
-              <span class="info-box-text">CPU Traffic</span>
-              <span class="info-box-number">{{ $cpuUsage }}<small>%</small></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->            
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-microchip"></i></span>
 
-            <div class="info-box-content">
-              <span class="info-box-text">RAM Usage</span>
-              <span class="info-box-number">{{ $ramUsage }}</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
 
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-    </div>
-
-    
-</div>
-<!-- /.box-body -->
-<div class="box-footer">
-    
-</div>
 @endsection
+
+@section('custom-javascript')
+<!-- JS Libraries -->
+<script src="{{ asset('assets/backend/stisla/modules/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/jquery-ui/jquery-ui.min.js') }}"></script>
+
+<!-- Page Specific JS File -->
+<script src="{{ asset('assets/backend/stisla/js/page/modules-datatables.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/select2/dist/js/select2.full.min.js') }}"></script>
+@endsection
+
+@push('scripts')
+<script>
+
+
+</script>
+@endpush

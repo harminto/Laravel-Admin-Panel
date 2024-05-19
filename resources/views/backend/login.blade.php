@@ -1,108 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('assets/bower_components/font-awesome/css/font-awesome.min.css') }}">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="{{ asset('assets/bower_components/Ionicons/css/ionicons.min.css') }}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('assets/css/AdminLTE.min.css') }}">
-  <!-- Toastr -->
-  <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
-  <!-- Nprogress -->
-  <link rel="stylesheet" href="{{ asset('assets/plugins/nprogress/nprogress.css') }}">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Login &mdash; {{ $judul }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="stylesheet" href="{{ asset('assets/css/custom-style.css') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/backend/stisla/img/example-image.jpg') }}">
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/stisla/modules/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backend/stisla/modules/fontawesome/css/all.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/backend/stisla/modules/bootstrap-social/bootstrap-social.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backend/stisla/modules/izitoast/css/iziToast.min.css') }}">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/stisla/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backend/stisla/css/components.css') }}">
 
 </head>
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ route('login') }}"><b>Admin</b>LTE</a>
-        </div>
-		
-        <!-- /.login-logo -->
-        <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-            <div id="flash-message" class="alert alert-danger" style="display: none;"></div>
-
-            <form method="post" action="{{ route('login') }}">
-                @csrf
-                <div class="form-group has-feedback">
-                    <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="row">
-                    <div class="col-xs-8"></div>
-                    <div class="col-xs-4">
-                        <button class="btn btn-primary btn-block btn-flat nprogress" onclick="loginUser(event)">&nbsp;{{ __('Login') }}</button>
+<body>
+    <div id="app">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                    <div class="login-brand">
+                        <img src="{{ asset('assets/backend/stisla/img/example-image.jpg') }}" alt="logo" width="100" class="shadow-light rounded-circle">
                     </div>
-                    <!-- /.col -->
-                </div>						
-            </form>
+                    <div class="card card-primary">
+                        <div class="card-header"><h4>Login</h4></div>
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                                    <div class="invalid-feedback">
+                                    Please fill in your email
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="d-block">
+                                        <label for="password" class="control-label">Password</label>
+                                    </div>
+                                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                                    <div class="invalid-feedback">
+                                        please fill in your password
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button class="btn btn-primary btn-lg btn-block" tabindex="4" onclick="loginUser(event)">
+                                                Login
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.login-box-body -->
     </div>
+    
 
-<!-- jQuery 3 -->
-<script src="{{ asset('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<!-- Nprogress -->
-<script src="{{ asset('assets/plugins/nprogress/nprogress.js') }}"></script>
-<!-- Toastr -->
-<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
-<!-- iCheck -->
-<script>
-function loginUser(event) {
-    event.preventDefault();
+    <!-- General JS Scripts -->
+    <script src="{{ asset('assets/backend/stisla/modules/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/stisla/modules/popper.js') }}"></script>
+    <script src="{{ asset('assets/backend/stisla/modules/tooltip.js') }}"></script>
+    <script src="{{ asset('assets/backend/stisla/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/stisla/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/stisla/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/stisla/js/stisla.js') }}"></script>
+  
+    <!-- Template JS File -->
+    <script src="{{ asset('assets/backend/stisla/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/backend/stisla/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/backend/stisla/modules/izitoast/js/iziToast.min.js') }}"></script>
+    <script>
+    function loginUser(event) {
+        event.preventDefault();
 
-    var form = event.target.closest('form');
-    var url = form.getAttribute('action');
+        var form = event.target.closest('form');
+        var url = form.getAttribute('action');
 
-    var xhr = new XMLHttpRequest();
-    xhr.open(form.getAttribute('method'), url, true);
-    xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        var xhr = new XMLHttpRequest();
+        xhr.open(form.getAttribute('method'), url, true);
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            toastr.success(response.message);
-            // Pengalihan ke halaman dashboard setelah login berhasil
-            window.location.href = response.redirect;
-        } else {
-            toastr.error('Login GAGAL, Email atau password salah');
-        }
-    };
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                iziToast.success({
+                    title: 'Success',
+                    message: response.message,
+                    position: 'topRight'
+                });
+                window.location.href = response.redirect;
+            } else {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Login GAGAL, Email atau password salah',
+                    position: 'topRight'
+                });
+            }
+        };
 
-    xhr.onerror = function() {
-        toastr.error('An error occurred during the login process.');
-    };
+        xhr.onerror = function() {
+            iziToast.error({
+                title: 'Error',
+                message: 'Kesalahan pada sistem login',
+                position: 'topRight'
+            });
+        };
 
-    var formData = new FormData(form);
-    xhr.send(formData);
-}
+        var formData = new FormData(form);
+        xhr.send(formData);
+    }
+    </script>
 
-</script>
-
+    
 </body>
 </html>

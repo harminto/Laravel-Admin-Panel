@@ -1,48 +1,17 @@
-<!-- jQuery 3 -->
-<script src="{{ asset('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('assets/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<!-- General JS Scripts -->
+<script src="{{ asset('assets/backend/stisla/modules/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/popper.js') }}"></script>
+{{-- <script src="{{ asset('assets/backend/stisla/modules/tooltip.js') }}"></script> --}}
+<script src="{{ asset('assets/backend/stisla/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/backend/stisla/modules/moment.min.js') }}"></script> --}}
 
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/js/stisla.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/toastr/toastr.min.js') }}"></script>
 
-<!-- DataTables -->
-<script src="{{ asset('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+@yield('custom-javascript')
 
-<!-- Morris.js charts
-<script src="{{ asset('assets/bower_components/raphael/raphael.min.js') }}"></script>
-<script src="{{ asset('assets/bower_components/morris.js/morris.min.js') }}"></script>
-<!-- Sparkline
-<script src="{{ asset('assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
-<!-- jvectormap
-<script src="{{ asset('assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-<!-- jQuery Knob Chart
-<script src="{{ asset('assets/bower_components/jquery-knob/dist/jquery.knob.min.js') }}"></script>
-<!-- daterangepicker
-<script src="{{ asset('assets/bower_components/moment/min/moment.min.js') }}"></script>
-<script src="{{ asset('assets/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<!-- datepicker
-<script src="{{ asset('assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-<!-- Bootstrap WYSIHTML5
-<script src="{{ asset('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
--->
-
-<!-- Slimscroll -->
-<script src="{{ asset('assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-<!-- FastClick -->
-<script src="{{ asset('assets/bower_components/fastclick/lib/fastclick.js') }}"></script>
-
-<!-- Sweet Alert -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
-<script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.11.min.js') }}"></script>
-
-<!-- Toastr -->
-<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
-<!-- Nprogress -->
-<script src="{{ asset('assets/plugins/nprogress/nprogress.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/nprogress/nprogress.js') }}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     NProgress.configure({ showSpinner: false });
@@ -57,13 +26,11 @@
 </script>
 
 <!-- Ajax Handler -->
-<script src="{{ asset('assets/js/ajaxHandler.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/modules/sweetalert/sweetalert.min.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/js/ajaxHandler.js') }}"></script>
+<!-- JS Libraies -->
+<script src="{{ asset('assets/backend/stisla/modules/izitoast/js/iziToast.min.js') }}"></script>
 
-<!-- AdminLTE App -->
-<script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) 
-<script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
--->
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('assets/js/demo.js') }}"></script>
-
+<!-- Template JS File -->
+<script src="{{ asset('assets/backend/stisla/js/scripts.js') }}"></script>
+<script src="{{ asset('assets/backend/stisla/js/custom.js') }}"></script>

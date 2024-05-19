@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $loadAverage = sys_getloadavg();
-        $cpuUsage = round($loadAverage[0] * 100, -2);
+        $userRoles = auth()->user()->roles;
+        $dashboardView = 'backend.dashboard.default';
+        $contentHeader = 'Dashboard';
 
-        $ramUsage = memory_get_usage(true);
-        
-        return view('backend.home', compact('cpuUsage', 'ramUsage'));
+        return view('backend.home', compact('dashboardView', 'contentHeader'));
     }
 }

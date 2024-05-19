@@ -1,0 +1,36 @@
+/**
+ *
+ * You can write your CSS code here, DO NOT touch the default JavaScript file
+ * because it will make it harder for you to update.
+ * 
+ */
+
+/*# sourceMappingURL=custom.css.map */
+
+.custom-fieldset {
+    border: 1px solid #d2d6de;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.custom-fieldset legend {
+    width: auto;
+    border: none;
+    padding: 0 10px;
+    margin-bottom: 0px;
+}
+.custom-fieldset .form-group {
+    padding: 10px;
+    margin-bottom: 0px;
+}
+
+.custom-fieldset input,
+.custom-fieldset select,
+.custom-fieldset textarea {
+    padding: 5px;
+    margin-bottom: 0px;
+}
+
+.legend-right {
+    text-align: right;
+}

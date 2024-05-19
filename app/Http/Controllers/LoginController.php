@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppSetting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,10 @@ class LoginController extends Controller
 
     public function index()
     {
-        return view('backend.login');
+        $appSetting = AppSetting::where('setting_key', 'short_name')->first();
+
+        $judul = $appSetting ? $appSetting->setting_value : 'Custome CMS made by Minto`s Production';
+        return view('backend.login', ['judul' => $judul]);
     }
 
     // Method untuk melakukan proses login
@@ -46,7 +50,7 @@ class LoginController extends Controller
             // Login berhasil
             return response()->json([
                 'message' => 'Login Berhasil',
-                'redirect' => '/dashboard'
+                'redirect' => '/home'
             ], 200);
         } else {
             // Login gagal

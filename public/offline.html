@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="title" content="InfyBonus">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koneksi Terputus</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .error-heading {
+            color: transparent;
+            font-size: 4em;
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: 0.5em;
+            background: linear-gradient(90deg, #6b719b 38%, #9da3cc 53%, #979dce 65%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        @media (max-width: 540px) {
+            .error-heading {
+                font-size: 3em;
+                letter-spacing: 0.3em;
+            }
+        }
+
+        .error-message,
+        .error-paragraph {
+            color: #787878;
+            margin: 10px 0;
+        }
+
+        .error-btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #4285f4;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .error-btn:hover {
+            background-color: #3367d6;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-body">
+        <div class="error-container">
+            <h2 class="error-heading">Yeahh!</h2>
+            <p class="error-message">Koneksi internet Anda terputus.</p>
+            <p class="error-paragraph">
+                Harap periksa koneksi internet Anda dan coba lagi.
+            </p>
+            <a href="/" class="error-btn">Kembali ke Halaman Utama</a>
+        </div>
+    </div>
+</body>
+</html>
