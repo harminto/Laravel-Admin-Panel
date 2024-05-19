@@ -17,12 +17,11 @@
 </div>
 @endsection
 
+
 @section('content')
-<div class="row">
-              
-</div>
-
-
+    <div class="row">
+        @yield('content-dashboard')
+    </div>
 @endsection
 
 @section('custom-javascript')

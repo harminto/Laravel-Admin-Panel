@@ -6,7 +6,7 @@
     <title>Dashboard &mdash; {{ \App\Models\AppSetting::where('setting_key', 'short_name')->value('setting_value') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('logo-jamf.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/backend/stisla/img/example-image.jpg') }}">
     
 
     <!-- General CSS Files -->
