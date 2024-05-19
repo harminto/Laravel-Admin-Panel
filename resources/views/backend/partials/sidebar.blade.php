@@ -3,7 +3,7 @@
         <a href="{{ route('home') }}">{{ \App\Models\AppSetting::where('setting_key', 'short_name')->value('setting_value') }}</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-        <img alt="image" src="{{ asset('logo-jamf.png') }}" width="50" class="rounded-circle mr-1">
+        <img alt="image" src="{{ asset('assets/backend/stisla/img/example-image.jpg') }}" width="50" class="rounded-circle mr-1">
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header">Menu Utama</li>
@@ -46,15 +46,6 @@
             @endif
         @endforeach
     </ul>
-
-    {{-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-        <button id="installButton" style="display: none;" class="btn btn-primary btn-lg btn-block btn-icon-split">
-            <i class="fas fa-rocket"></i> Install APP
-        </button>
-        <button id="uninstallButton" style="display: none;" class="btn btn-danger btn-lg btn-block btn-icon-split">
-            <i class="fas fa-rocket"></i> Uninstall APP
-        </button>
-    </div> --}}
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
