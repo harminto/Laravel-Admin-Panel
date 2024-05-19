@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Utilities\DataUtility;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     use DataUtility;
-
+    
     public function index()
     {
         return view('backend.users.index');
@@ -49,6 +52,13 @@ class UserController extends Controller
 
     public function create()
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin untuk mengakses halaman ini.';
+            Session::flash('error', $errorMessage);
+            return redirect()->back();
+        }
+        
         $roles = Role::all();
         return view('backend.users.create', compact('roles'));
     }
@@ -62,6 +72,7 @@ class UserController extends Controller
             'roles' => 'array', // Validasi inputan roles sebagai array
         ]);
         
+        DB::beginTransaction();
         try {
             $user = User::create([
                 'name' => $request->name,
@@ -73,15 +84,24 @@ class UserController extends Controller
             if ($request->has('roles')) {
                 $user->roles()->attach($request->roles);
             }
-            return response()->json(['success' => true, 'message' => 'Users created successfully']);
+
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Data berhasil ditambahkan']);
         } catch (\Exception $e) {
-            // Jika terjadi kesalahan, tangani di sini
-            return response()->json(['success' => false, 'message' => 'Failed to create Users']);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Gagal Menambah Data : ' . $e->getMessage()]);
         }
     }
 
     public function edit(User $user)
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin untuk mengakses halaman ini.';
+            Session::flash('error', $errorMessage);
+            return redirect()->back();
+        }
+
         $roles = Role::all();
         $userRoles = $user->roles->pluck('id')->toArray();
         return view('backend.users.edit', compact('user', 'roles', 'userRoles'));
@@ -96,6 +116,7 @@ class UserController extends Controller
             'roles' => 'array',
         ]);
 
+        DB::beginTransaction();
         try {
             $user->update([
                 'name' => $request->name,
@@ -112,24 +133,34 @@ class UserController extends Controller
             } else {
                 $user->roles()->detach(); // Menghapus semua peran (roles) jika tidak ada peran yang dipilih
             }
-            return response()->json(['success' => true, 'message' => 'Users update successfully']);
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Berhasil mengubah data']);
         } catch (\Exception $e) {
-            // Jika terjadi kesalahan, tangani di sini
-            return response()->json(['success' => false, 'message' => 'Failed to update Users']);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Gagal Mengubah data : '. $e->getMessage()]);
         }
 
     }
 
     public function destroy(User $user)
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin menghapus data ini';
+            return response()->json(['success' => false, 'message' => $errorMessage]);
+        }
+
+        DB::beginTransaction();
         try {
             // Menghapus role yang terkait dengan user
             $user->roles()->detach();
             $user->delete();
 
-            return response()->json(['message' => 'Users deleted successfully.'], 200);
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Proses Hapus data berhasil']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred.'], 500);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menghapus data : ' . $e->getMessage()]);
         }
     
     }

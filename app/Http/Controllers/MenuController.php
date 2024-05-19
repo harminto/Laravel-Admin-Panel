@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Models\Role;
 use App\Utilities\DataUtility;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class MenuController extends Controller
 {
@@ -51,6 +53,13 @@ class MenuController extends Controller
 
     public function create()
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin untuk mengakses halaman ini.';
+            Session::flash('error', $errorMessage);
+            return redirect()->back();
+        }
+
         $menus = Menu::get();
 
         return view('backend.menu.create', compact('menus'));
@@ -63,12 +72,14 @@ class MenuController extends Controller
             'url' => 'required',
         ]);
 
+        DB::beginTransaction();
         try {
             Menu::create($request->all());
-            return response()->json(['success' => true, 'message' => 'Menu created successfully']);
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Data berhasil ditambahkan']);
         } catch (\Exception $e) {
-            // Jika terjadi kesalahan, tangani di sini
-            return response()->json(['success' => false, 'message' => 'Failed to create Menu']);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Gagal Menambah Data : ' . $e->getMessage()]);
         }
     }
 
@@ -81,6 +92,13 @@ class MenuController extends Controller
     
     public function edit(Menu $menu)
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin untuk mengakses halaman ini.';
+            Session::flash('error', $errorMessage);
+            return redirect()->back();
+        }
+
         $menus = Menu::get();
 
         return view('backend.menu.edit', compact('menu', 'menus'));
@@ -93,25 +111,36 @@ class MenuController extends Controller
             'url' => 'required',
         ]);
 
+        DB::beginTransaction();
         try {
             $menu->update($request->all());
 
-            return response()->json(['success' => true, 'message' => 'Menu update successfully']);
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Berhasil mengubah data']);
         } catch (\Exception $e) {
-            // Jika terjadi kesalahan, tangani di sini
-            return response()->json(['success' => false, 'message' => 'Failed to update Menu']);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Gagal Mengubah data : '. $e->getMessage()]);
         }
     }
 
 
     public function destroy(Menu $menu)
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin menghapus data ini';
+            return response()->json(['success' => false, 'message' => $errorMessage]);
+        }
+
+        DB::beginTransaction();
         try {
             $menu->delete();
 
-            return response()->json(['message' => 'Menu deleted successfully.'], 200);
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Proses Hapus data berhasil']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred.'], 500);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menghapus data : ' . $e->getMessage()]);
         }
     }
     

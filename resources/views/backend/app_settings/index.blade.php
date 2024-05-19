@@ -72,5 +72,15 @@ $(function () {
         { data: 'description', name: 'description' }
     ]);
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    @if(session('error'))
+        iziToast.error({
+            title: 'Error',
+            message: "{{ session('error') }}",
+            position: 'topRight'
+        });
+    @endif
+});
 </script>
 @endpush

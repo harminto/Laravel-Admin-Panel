@@ -116,7 +116,7 @@
                                                             <input type="checkbox" class="minimal-red permission-checkbox" data-permission="edit" data-menu-id="{{ $childMenu->id }}" data-role-id="{{ $role->id }}" {{ isset($hakAksesArray[$role->id][$childMenu->id]['edit']) && $hakAksesArray[$role->id][$childMenu->id]['edit'] ? 'checked' : '' }}>
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" class="minimal-red permission-checkbox" data-permission="delete" data-menu-id="{{ $childMenu->id }}" data-role-id="{{ $role->id }}" {{ isset($hakAksesArray[$role->id][$childMenu->id]['delete']) && $hakAksesArray[$role->id][$childMenu->id]['delete'] ? 'checked' : '' }}>
+                                                            <input type="checkbox" class="minimal-red permission-checkbox" data-permission="destroy" data-menu-id="{{ $childMenu->id }}" data-role-id="{{ $role->id }}" {{ isset($hakAksesArray[$role->id][$childMenu->id]['destroy']) && $hakAksesArray[$role->id][$childMenu->id]['destroy'] ? 'checked' : '' }}>
                                                         </td>
                                                     </tr>
                                                     @foreach ($menus->filter(function($item) use ($childMenu) {
@@ -135,7 +135,7 @@
                                                                 <input type="checkbox" class="minimal-red permission-checkbox" data-permission="edit" data-menu-id="{{ $subMenu->id }}" data-role-id="{{ $role->id }}" {{ isset($hakAksesArray[$role->id][$subMenu->id]['edit']) && $hakAksesArray[$role->id][$subMenu->id]['edit'] ? 'checked' : '' }}>
                                                             </td>
                                                             <td>
-                                                                <input type="checkbox" class="minimal-red permission-checkbox" data-permission="delete" data-menu-id="{{ $subMenu->id }}" data-role-id="{{ $role->id }}" {{ isset($hakAksesArray[$role->id][$subMenu->id]['delete']) && $hakAksesArray[$role->id][$subMenu->id]['delete'] ? 'checked' : '' }}>
+                                                                <input type="checkbox" class="minimal-red permission-checkbox" data-permission="destroy" data-menu-id="{{ $subMenu->id }}" data-role-id="{{ $role->id }}" {{ isset($hakAksesArray[$role->id][$subMenu->id]['destroy']) && $hakAksesArray[$role->id][$subMenu->id]['destroy'] ? 'checked' : '' }}>
                                                             </td>
                                                         </tr>
                                                     @endforeach

@@ -2,10 +2,37 @@
 
 namespace App\Utilities;
 
+use App\Models\HakAkses;
+use App\Models\Menu;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 trait DataUtility
 {
+    public function getPermissions($user_id, $namaRoute)
+    {
+        $routeParts = explode('.', $namaRoute);
+        $routeName = $routeParts[0];
+        $menu = Menu::where('url', 'like', $routeName . '.%')->first();
+
+        
+
+        $dataPermissions = HakAkses::where('menu_id', $menu->id)
+                               ->where('role_id', function ($query) use ($user_id) {
+                                   $query->select('role_id')
+                                         ->from('user_roles')
+                                         ->where('user_id', $user_id);
+                               })
+                               ->first();
+
+        if (isset($dataPermissions->permissions[$routeParts[1]])) {
+            $hasPermission = $dataPermissions->permissions[$routeParts[1]];
+            return $hasPermission;
+        } else {
+            return false;
+        }
+    }
+
     public function getDetailData(Request $request, $modelClass, $start, $length, $search, $searchColumns = [], $format)
     {
         $query = $modelClass::query();

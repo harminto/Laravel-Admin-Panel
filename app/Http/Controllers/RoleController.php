@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Utilities\DataUtility;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class RoleController extends Controller
 {
@@ -43,6 +46,13 @@ class RoleController extends Controller
 
     public function create()
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin untuk mengakses halaman ini.';
+            Session::flash('error', $errorMessage);
+            return redirect()->back();
+        }
+
         return view('backend.roles.create');
     }
 
@@ -52,19 +62,28 @@ class RoleController extends Controller
             'name' => 'required|unique:roles|max:255',
         ]);
 
+        DB::beginTransaction();
         try {
             $role = new Role;
             $role->name = $request->input('name');
             $role->save();
 
-            return response()->json(['success' => true, 'message' => 'Roles created successfully']);
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Data berhasil ditambahkan']);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to create roles']);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Gagal Menambah Data : ' . $e->getMessage()]);
         }
     }
 
     public function edit(Role $role)
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin untuk mengakses halaman ini.';
+            Session::flash('error', $errorMessage);
+            return redirect()->back();
+        }
         return view('backend.roles.edit', compact('role'));
     }
 
@@ -74,24 +93,37 @@ class RoleController extends Controller
             'name' => 'required|unique:roles,name,' . $role->id . '|max:255',
         ]);
 
+        DB::beginTransaction();
         try {
             $role->name = $request->input('name');
             $role->save();
 
-            return response()->json(['success' => true, 'message' => 'Roles update successfully']);
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Berhasil mengubah data']);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to update roles']);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Gagal Mengubah data : '. $e->getMessage()]);
         }    
     }
 
     public function destroy(Role $role)
     {
+        $permission = $this->getPermissions(Auth::id(), request()->route()->getName());
+        if (!$permission) {
+            $errorMessage = 'Anda tidak memiliki izin menghapus data ini';
+            return response()->json(['success' => false, 'message' => $errorMessage]);
+        }
+
+        DB::beginTransaction();
         try {
             $role->delete();
             
-            return response()->json(['message' => 'Role deleted successfully.'], 200);
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Proses Hapus data berhasil']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred.'], 500);
+            DB::rollback();
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menghapus data : ' . $e->getMessage()]);
         }
     }
+    
 }
